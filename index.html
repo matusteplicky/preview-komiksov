@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nakuknite do komiksu | Lomidrevo Junior</title>
+<meta name="description" content="Prelistujte si ukážky z komiksov Lomidrevo a Mesačná armáda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="landing">
+  <h1>Nakuknite dovnútra!</h1>
+  <p class="lead">Prelistujte si ukážky z komiksov o Lomidrevovi. Vyberte si diel.</p>
+  <div class="cards" id="cards"></div>
+  <p style="margin-top:34px"><a class="btn alt" href="https://www.lomidrevojunior.sk">Späť do obchodu</a></p>
+</main>
+<script src="common.js"></script>
+<script>
+loadBooks().then(books => {
+  document.getElementById("cards").innerHTML = books.map(b => {
+    const first = parsePages(b.pages, b.total)[0] || 1;
+    return `<a class="card" href="reader.html?b=${b.id}">
+      <img src="${b.folder}/${pad(first)}.webp" alt="Obálka: ${b.title}, ${b.subtitle}" loading="lazy">
+      <h2>${b.title}</h2><span class="sub">${b.subtitle}</span>
+      <span class="btn">Čítať ukážku</span></a>`;
+  }).join("");
+});
+</script>
+</body>
+</html>
